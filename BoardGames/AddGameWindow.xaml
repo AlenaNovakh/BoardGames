@@ -1,0 +1,99 @@
+﻿<Window x:Class="BoardGames.WPF.AddGameWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Добавить игру"
+        Width="420" Height="480"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner">
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="140"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Строка 0: Название -->
+        <Label Grid.Row="0" Grid.Column="0" Content="Название:"/>
+        <TextBox x:Name="txtName" Grid.Row="0" Grid.Column="1" Margin="3"/>
+
+        <!-- Строка 1: Тип игры -->
+        <Label Grid.Row="1" Grid.Column="0" Content="Тип игры:"/>
+        <!-- SelectionChanged — при смене типа показываем/скрываем уникальное поле -->
+        <ComboBox x:Name="cmbType"
+                  Grid.Row="1" Grid.Column="1"
+                  SelectionChanged="cmbType_SelectionChanged">
+            <ComboBoxItem Content="CardGame"  IsSelected="True"/>
+            <ComboBoxItem Content="EuroGame"/>
+            <ComboBoxItem Content="PartyGame"/>
+        </ComboBox>
+
+        <!-- Строка 2: Мин. игроков -->
+        <Label Grid.Row="2" Grid.Column="0" Content="Мин. игроков:"/>
+        <TextBox x:Name="txtMinP" Grid.Row="2" Grid.Column="1" Margin="3" Text="2"/>
+
+        <!-- Строка 3: Макс. игроков -->
+        <Label Grid.Row="3" Grid.Column="0" Content="Макс. игроков:"/>
+        <TextBox x:Name="txtMaxP" Grid.Row="3" Grid.Column="1" Margin="3" Text="4"/>
+
+        <!-- Строка 4: Возраст -->
+        <Label Grid.Row="4" Grid.Column="0" Content="Мин. возраст:"/>
+        <TextBox x:Name="txtAge" Grid.Row="4" Grid.Column="1" Margin="3" Text="12"/>
+
+        <!-- Строка 5: Уникальное поле — меняется по типу.
+             Visibility управляется из code-behind. -->
+        <Label x:Name="lblExtra" Grid.Row="5" Grid.Column="0" Content="Размер колоды:"/>
+        <!-- Поле для CardGame (размер колоды) -->
+        <TextBox x:Name="txtDeckSize"
+                 Grid.Row="5" Grid.Column="1"
+                 Margin="3" Text="52"/>
+        <!-- Выпадающий список для EuroGame (сложность) -->
+        <ComboBox x:Name="cmbComplexity"
+                  Grid.Row="5" Grid.Column="1"
+                  Visibility="Collapsed">
+            <ComboBoxItem Content="Low"/>
+            <ComboBoxItem Content="Medium" IsSelected="True"/>
+            <ComboBoxItem Content="High"/>
+        </ComboBox>
+        <!-- Чекбокс для PartyGame (шумная?) -->
+        <!-- CheckBox — флажок, ключевой элемент WPF UI -->
+        <CheckBox x:Name="chkNoisy"
+                  Grid.Row="5" Grid.Column="1"
+                  Content="Шумная игра"
+                  Margin="3,8"
+                  Visibility="Collapsed"/>
+
+        <!-- Строка 6: Описание (метка) -->
+        <Label Grid.Row="6" Grid.Column="0" Content="Описание:" VerticalAlignment="Top" Margin="0,8,0,0"/>
+        <!-- TextBox многострочный -->
+        <TextBox x:Name="txtDesc"
+                 Grid.Row="6" Grid.Column="1"
+                 Grid.RowSpan="2"
+                 Margin="3"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Auto"
+                 Height="80"/>
+
+        <!-- Строка 8: Кнопки OK / Отмена -->
+        <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,12,0,0">
+            <Button Content="Добавить" Click="btnOk_Click" Width="110" Margin="0,0,8,0"/>
+            <Button Content="Отмена"   Click="btnCancel_Click" Width="90"
+                    Background="#F5F5F5" Foreground="#212121"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

@@ -1,0 +1,56 @@
+﻿<Window x:Class="BoardGames.WPF.CatalogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Каталог настольных игр"
+        Width="820" Height="520"
+        WindowStartupLocation="CenterOwner">
+
+    <!-- DockPanel — контейнер с привязкой детей к сторонам.
+         LastChildFill="True" — последний ребёнок заполняет оставшееся место. -->
+    <DockPanel Margin="12">
+
+        <!-- Панель кнопок — привязана к низу (DockPanel.Dock="Bottom").
+             Важно: сначала в xaml — значит обработан до таблицы, но визуально снизу. -->
+        <StackPanel DockPanel.Dock="Bottom"
+                    Orientation="Horizontal"
+                    Margin="0,8,0,0">
+            <Button Content="Добавить игру"     Click="btnAdd_Click"    Width="140"/>
+            <Button Content="Удалить выбранную" Click="btnRemove_Click" Width="160"/>
+        </StackPanel>
+
+        <!-- DataGrid — таблица WPF.
+             AutoGenerateColumns="False" — колонки задаём вручную, не автоматически.
+             CanUserAddRows="False" — отключаем встроенную строку добавления.
+             SelectionMode="Single" — одна строка за раз.
+             IsReadOnly="True" — таблица только для чтения.
+             x:Name — для привязки данных из code-behind. -->
+        <DataGrid x:Name="dgvGames"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  SelectionMode="Single"
+                  IsReadOnly="True"
+                  GridLinesVisibility="Horizontal"
+                  AlternatingRowBackground="#F5F5F5"
+                  RowHeight="32"
+                  HeadersVisibility="Column">
+
+            <DataGrid.Columns>
+                <!-- DataGridTextColumn — текстовая колонка.
+                     Binding="{Binding Name}" — привязываем к свойству Name объекта BoardGame.
+                     Синтаксис {Binding ...} — это Data Binding, ключевая фича WPF.
+                     Width="*" — колонка занимает оставшееся место.
+                     Width="Auto" — по содержимому. -->
+                <DataGridTextColumn Header="Название"      Binding="{Binding Name}"          Width="*"/>
+                <!-- Binding к методу напрямую нельзя — используем вспомогательное свойство.
+                     В code-behind мы будем создавать GameViewModel с нужными свойствами. -->
+                <DataGridTextColumn Header="Тип"           Binding="{Binding GameType}"       Width="100"/>
+                <DataGridTextColumn Header="Мин. игроков"  Binding="{Binding MinPlayers}"     Width="100"/>
+                <DataGridTextColumn Header="Макс. игроков" Binding="{Binding MaxPlayers}"     Width="110"/>
+                <DataGridTextColumn Header="Возраст"       Binding="{Binding AgeRestriction}" Width="80"/>
+                <DataGridTextColumn Header="Описание"      Binding="{Binding Description}"    Width="200"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </DockPanel>
+</Window>

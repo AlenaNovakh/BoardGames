@@ -1,0 +1,79 @@
+﻿<!-- Window — корневой элемент любого окна WPF.
+     x:Class — связывает разметку с классом MainWindow в code-behind.
+     Title, Width, Height — свойства окна. -->
+<Window x:Class="BoardGames.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="BoardGames — Каталог настольных игр"
+        Width="560" Height="380"
+        ResizeMode="CanMinimize"
+        WindowStartupLocation="CenterScreen">
+
+    <!-- Grid — основной контейнер WPF.
+         RowDefinitions описывают строки сетки.
+         Auto — строка принимает размер содержимого.
+         * — строка занимает оставшееся пространство. -->
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- строка 0: выбор игры -->
+            <RowDefinition Height="Auto"/>
+            <!-- строка 1: кнопки действий -->
+            <RowDefinition Height="Auto"/>
+            <!-- строка 2: разделитель -->
+            <RowDefinition Height="*"/>
+            <!-- строка 3: аналитика -->
+        </Grid.RowDefinitions>
+
+        <!-- ===== СТРОКА 0: Выбор игры ===== -->
+        <!-- StackPanel — контейнер, располагающий детей друг за другом.
+             Orientation="Horizontal" — в строку (по умолчанию Vertical — в столбец). -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12">
+            <!-- Label — текстовая метка. Content — текст или любой элемент. -->
+            <Label Content="Выберите игру:" Width="120"/>
+
+            <!-- ComboBox — выпадающий список.
+                 x:Name — имя, по которому обращаемся в code-behind.
+                 SelectionChanged — событие выбора элемента.
+                 DisplayMemberPath — какое свойство объекта показывать в списке.
+                 "Name" означает: показывать game.Name для каждого объекта BoardGame. -->
+            <ComboBox x:Name="cmbGames"
+                      Width="260"
+                      SelectionChanged="cmbGames_SelectionChanged"
+                      DisplayMemberPath="Name"/>
+
+            <!-- Button — кнопка. Click — обработчик нажатия.
+                 IsEnabled="False" — неактивна по умолчанию. -->
+            <Button x:Name="btnShowDetails"
+                    Content="Показать данные"
+                    IsEnabled="False"
+                    Click="btnShowDetails_Click"/>
+        </StackPanel>
+
+        <!-- ===== СТРОКА 1: Кнопки управления ===== -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,16">
+            <Button Content="Открыть каталог" Click="btnOpenCatalog_Click"/>
+        </StackPanel>
+
+        <!-- ===== СТРОКА 2: Разделитель ===== -->
+        <!-- Separator — горизонтальная линия-разделитель -->
+        <Separator Grid.Row="2" Margin="0,0,0,12"/>
+
+        <!-- ===== СТРОКА 3: Аналитика ===== -->
+        <!-- GroupBox — рамка с заголовком, визуально группирует элементы -->
+        <GroupBox Grid.Row="3" Header="Аналитика каталога" Padding="8">
+            <!-- UniformGrid — сетка с одинаковыми ячейками.
+                 Columns="2" — два столбца, строки добавляются автоматически. -->
+            <UniformGrid Columns="2">
+                <!-- TextBlock — текстовый элемент (легче Label, нет обводки).
+                     x:Name — для обращения из code-behind.
+                     Margin — отступы: left, top, right, bottom. -->
+                <TextBlock x:Name="lblTotalGames"  Margin="4,4,4,4" FontSize="13"/>
+                <TextBlock x:Name="lblMeanAge"     Margin="4,4,4,4" FontSize="13"/>
+                <TextBlock x:Name="lblAvgMin"      Margin="4,4,4,4" FontSize="13"/>
+                <TextBlock x:Name="lblAvgMax"      Margin="4,4,4,4" FontSize="13"/>
+                <TextBlock x:Name="lblMeanRange"   Margin="4,4,4,4" FontSize="13"/>
+            </UniformGrid>
+        </GroupBox>
+    </Grid>
+</Window>
