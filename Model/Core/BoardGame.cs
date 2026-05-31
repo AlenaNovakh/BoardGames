@@ -1,5 +1,4 @@
-﻿// Пространство имён — важно, чтобы все файлы в Model/Core использовали одно и то же
-namespace Model.Core
+﻿namespace Model.Core
 {
     // abstract означает: нельзя создать объект BoardGame напрямую (new BoardGame() — ошибка).
     // Только через наследников: CardGame, EuroGame, PartyGame.
@@ -29,45 +28,24 @@ namespace Model.Core
             Description = description;
             ImagePath = imagePath;
         }
-
-        // abstract метод — у него НЕТ тела здесь.
-        // Каждый наследник ОБЯЗАН его реализовать через override.
-        // Это ПОЛИМОРФИЗМ: один вызов game.GetGameType() вернёт разный результат
-        // в зависимости от реального типа объекта.
         public abstract string GetGameType();
-
-        // virtual метод — имеет реализацию по умолчанию, но наследник МОЖЕТ переопределить.
-        // Это тоже ПОЛИМОРФИЗМ.
         public virtual string GetShortInfo()
         {
             return $"{Name} | {GetGameType()} | {MinPlayers}-{MaxPlayers} игроков | {AgeRestriction}+";
         }
-
-        // ПЕРЕГРУЗКА МЕТОДА (overloading) — два метода с одним именем, но разными параметрами.
-        // C# различает их по сигнатуре (типам параметров).
         public virtual string GetShortInfo(bool includeDescription)
         {
-            string base_ = GetShortInfo(); // вызываем версию без параметров
+            string base_ = GetShortInfo();
             return includeDescription ? base_ + "\n" + Description : base_;
         }
-
-        // ПЕРЕГРУЗКА ОПЕРАТОРОВ — позволяет писать game1 < game2.
-        // Нужно для оценки 5, но добавляем сразу, лишним не будет.
-        // Оператор < сравнивает по имени в алфавитном порядке.
-        // string.Compare возвращает отрицательное число, если first < second.
         public static bool operator <(BoardGame left, BoardGame right)
         {
             return string.Compare(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) < 0;
         }
-
         public static bool operator >(BoardGame left, BoardGame right)
         {
             return string.Compare(left.Name, right.Name, StringComparison.OrdinalIgnoreCase) > 0;
         }
-
-        // ToString() — стандартный метод всех объектов C#, переопределяем для удобства.
-        // Теперь при Console.WriteLine(game) или в ComboBox без форматирования
-        // будет выводиться имя игры.
         public override string ToString() => Name;
     }
 }

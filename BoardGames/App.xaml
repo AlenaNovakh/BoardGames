@@ -1,16 +1,7 @@
-﻿<!-- App.xaml — точка входа WPF-приложения.
-     Аналог Program.cs в WinForms, но в виде XML.
-     StartupUri задаёт, какое окно открывать первым.
-     Мы переопределяем OnStartup в code-behind, поэтому StartupUri не нужен. -->
-<Application x:Class="BoardGames.WPF.App"
+﻿<Application x:Class="BoardGames.WPF.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <!-- ResourceDictionary — словарь глобальных стилей.
-         Стили применяются ко всем окнам приложения автоматически. -->
     <Application.Resources>
-        <!-- Стиль для всех кнопок в приложении.
-             TargetType="Button" — этот стиль применяется к каждой кнопке,
-             у которой нет собственного стиля. -->
         <Style TargetType="Button">
             <Setter Property="Padding" Value="10,5"/>
             <Setter Property="Margin" Value="3"/>
@@ -20,18 +11,15 @@
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="Cursor" Value="Hand"/>
-            <!-- Template переопределяет внешний вид кнопки полностью -->
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <!-- Border — это визуальная оболочка кнопки -->
                         <Border Background="{TemplateBinding Background}"
                                 CornerRadius="4"
                                 Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Center"
                                               VerticalAlignment="Center"/>
                         </Border>
-                        <!-- Триггеры меняют вид при наведении и нажатии -->
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Background" Value="#1976D2"/>
@@ -39,7 +27,6 @@
                             <Trigger Property="IsPressed" Value="True">
                                 <Setter Property="Background" Value="#0D47A1"/>
                             </Trigger>
-                            <!-- Неактивная кнопка — серая -->
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter Property="Background" Value="#BDBDBD"/>
                             </Trigger>
@@ -49,7 +36,6 @@
             </Setter>
         </Style>
 
-        <!-- Стиль для TextBox -->
         <Style TargetType="TextBox">
             <Setter Property="Padding" Value="6,4"/>
             <Setter Property="Margin" Value="3"/>
@@ -58,7 +44,6 @@
             <Setter Property="FontSize" Value="13"/>
         </Style>
 
-        <!-- Стиль для ComboBox -->
         <Style TargetType="ComboBox">
             <Setter Property="Padding" Value="6,4"/>
             <Setter Property="Margin" Value="3"/>
@@ -66,7 +51,6 @@
             <Setter Property="Height" Value="32"/>
         </Style>
 
-        <!-- Стиль для Label -->
         <Style TargetType="Label">
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="Padding" Value="0,4"/>

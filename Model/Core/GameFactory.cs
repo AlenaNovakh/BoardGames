@@ -2,12 +2,9 @@
 
 namespace Model.Core
 {
-    // ПРИНЦИП ЕДИНОЙ ОТВЕТСТВЕННОСТИ: этот класс знает только о создании игр.
-    // Если завтра нужно добавить новые стартовые игры — меняем только этот файл.
     public static class GameFactory
     {
-        // static — не нужно создавать экземпляр, вызываем GameFactory.CreateDefaultGames().
-        public static List<BoardGame> CreateDefaultGames()
+        public static List<BoardGame> CreateGames()
         {
             return new List<BoardGame>
             {
@@ -15,6 +12,10 @@ namespace Model.Core
                 new CardGame("Dominion", 2, 4, 13,
                     "Классическая колодостроительная игра. Собирайте провинции быстрее соперников.",
                     "images/dominion.jpg", 500),
+                
+                new CardGame("Magic: The Gathering", 2, 2, 13,
+                    "Коллекционная карточная игра — дуэли магов с уникальными картами.",
+                    "images/mtg.jpg", 60),
 
                 new CardGame("Uno", 2, 10, 7,
                     "Простая и весёлая карточная игра. Сбросьте все карты первым!",
@@ -44,6 +45,10 @@ namespace Model.Core
                 new EuroGame("Puerto Rico", 2, 5, 12,
                     "Управляете колонией: выращивайте товары и отправляйте корабли.",
                     "images/puertorico.jpg", Complexity.High),
+                
+                new EuroGame("Wingspan", 1, 5, 10,
+                    "Привлекайте птиц в свой заповедник. Красивая и спокойная евро-игра.",
+                    "images/wingspan.jpg", Complexity.Medium),
 
                 // PartyGame(name, minP, maxP, age, desc, imagePath, isNoisy)
                 new PartyGame("Крокодил", 4, 20, 6,
@@ -61,14 +66,6 @@ namespace Model.Core
                 new PartyGame("Alias", 4, 12, 10,
                     "Объясняйте слова без использования однокоренных — на скорость.",
                     "images/alias.jpg", true),
-
-                new CardGame("Magic: The Gathering", 2, 2, 13,
-                    "Коллекционная карточная игра — дуэли магов с уникальными картами.",
-                    "images/mtg.jpg", 60),
-
-                new EuroGame("Wingspan", 1, 5, 10,
-                    "Привлекайте птиц в свой заповедник. Красивая и спокойная евро-игра.",
-                    "images/wingspan.jpg", Complexity.Medium),
 
                 new PartyGame("Мафия", 6, 16, 12,
                     "Классическая психологическая игра. Мирные жители против мафии.",

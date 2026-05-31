@@ -8,13 +8,10 @@ namespace BoardGames.WPF
 {
     public partial class App : Application
     {
-        // OnStartup — вызывается при старте приложения.
-        // Переопределяем его вместо Main(), чтобы создать каталог ДО открытия окна.
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            // Путь к файлу с играми — рядом с exe в папке data.
             string dataPath = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory, "data", "games.json");
 
@@ -24,8 +21,7 @@ namespace BoardGames.WPF
             var games = serializer.Load();
             if (games.Count == 0)
             {
-                // Первый запуск: создаём дефолтные игры и сохраняем.
-                games = GameFactory.CreateDefaultGames();
+                games = GameFactory.CreateGames();
                 foreach (var g in games) catalog.AddGame(g);
                 serializer.Save(catalog.GetAllGames());
             }
@@ -34,8 +30,6 @@ namespace BoardGames.WPF
                 foreach (var g in games) catalog.AddGame(g);
             }
 
-            // Создаём главное окно и передаём зависимости через конструктор.
-            // DEPENDENCY INJECTION — MainWindow не знает про файлы, только про каталог.
             var mainWindow = new MainWindow(catalog, serializer);
             mainWindow.Show();
         }

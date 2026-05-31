@@ -16,15 +16,10 @@ namespace BoardGames.WPF
             InitializeComponent();
         }
 
-        // Вызывается при смене типа в ComboBox.
-        // Скрываем/показываем нужное поле через Visibility.
         private void cmbType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // SelectedItem у ComboBox — это ComboBoxItem, у него Content — строка.
             string type = (cmbType.SelectedItem as ComboBoxItem)?.Content?.ToString();
 
-            // В WPF Visibility.Visible = видимо, Visibility.Collapsed = скрыто И не занимает место.
-            // Visibility.Hidden = скрыто, но занимает место (как opacity:0 в CSS).
             switch (type)
             {
                 case "CardGame":
@@ -61,7 +56,6 @@ namespace BoardGames.WPF
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            // Валидация
             if (string.IsNullOrWhiteSpace(txtName.Text))
             {
                 MessageBox.Show("Введите название игры.", "Ошибка",
@@ -104,20 +98,16 @@ namespace BoardGames.WPF
                     "EuroGame" => new EuroGame(
                         txtName.Text.Trim(), minP, maxP, age,
                         txtDesc.Text.Trim(), "",
-                        // Индекс выбранного элемента соответствует значению enum:
-                        // 0=Low, 1=Medium, 2=High
                         (Complexity)(cmbComplexity.SelectedIndex)),
 
                     "PartyGame" => new PartyGame(
                         txtName.Text.Trim(), minP, maxP, age,
                         txtDesc.Text.Trim(), "",
-                        chkNoisy.IsChecked == true), // IsChecked — bool? поэтому == true
+                        chkNoisy.IsChecked == true),
 
                     _ => throw new InvalidOperationException("Неизвестный тип")
                 };
 
-                // DialogResult = true — сигнал для CatalogWindow: "пользователь нажал OK".
-                // В WPF ShowDialog() возвращает bool? — именно это значение.
                 this.DialogResult = true;
                 this.Close();
             }

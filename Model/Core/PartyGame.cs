@@ -2,7 +2,6 @@
 {
     public class PartyGame : BoardGame
     {
-        // Уникальное поле — шумная ли игра (важно для домашних вечеринок).
         public bool IsNoisy { get; set; }
 
         public PartyGame(string name, int minPlayers, int maxPlayers,

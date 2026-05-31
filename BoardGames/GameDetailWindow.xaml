@@ -8,16 +8,10 @@
 
     <Grid Margin="16">
         <Grid.ColumnDefinitions>
-            <!-- Колонка 0: 220px — для картинки обложки -->
             <ColumnDefinition Width="220"/>
-            <!-- Колонка 1: * — весь оставшийся размер — для текстовых данных -->
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- ===== ЛЕВАЯ КОЛОНКА: Обложка ===== -->
-        <!-- Image — элемент для отображения изображения.
-             Stretch="Uniform" — масштабирует картинку без искажений, вписывая в размер.
-             x:Name — для загрузки изображения из code-behind. -->
         <Border Grid.Column="0"
                 BorderBrush="#BDBDBD"
                 BorderThickness="1"
@@ -28,18 +22,14 @@
                    VerticalAlignment="Center"/>
         </Border>
 
-        <!-- ===== ПРАВАЯ КОЛОНКА: Данные об игре ===== -->
-        <!-- StackPanel Vertical — каждый элемент под предыдущим -->
         <StackPanel Grid.Column="1">
 
-            <!-- Название — крупный заголовок -->
             <TextBlock x:Name="lblName"
                        FontSize="20"
                        FontWeight="Bold"
                        TextWrapping="Wrap"
                        Margin="0,0,0,12"/>
 
-            <!-- Тип игры — цветной бейдж-контейнер -->
             <Border x:Name="borderType"
                     Background="#E3F2FD"
                     CornerRadius="4"
@@ -52,9 +42,6 @@
                            FontWeight="SemiBold"/>
             </Border>
 
-            <!-- Сетка 2x3 для полей данных.
-                 ColumnDefinitions описывают ширину колонок в пикселях или *.
-                 Grid.Row и Grid.Column на каждом элементе — указывают ячейку. -->
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="130"/>
@@ -78,7 +65,6 @@
                            Grid.Row="1" Grid.Column="1"
                            FontSize="13" Margin="0,4"/>
 
-                <!-- Уникальное поле — меняется в зависимости от типа игры -->
                 <TextBlock x:Name="lblExtraKey"
                            Grid.Row="2" Grid.Column="0"
                            Foreground="#757575" FontSize="13" Margin="0,4"/>
@@ -87,18 +73,13 @@
                            FontSize="13" Foreground="#1565C0" Margin="0,4"/>
             </Grid>
 
-            <!-- Разделитель перед описанием -->
             <Separator Margin="0,12"/>
 
-            <!-- Заголовок описания -->
             <TextBlock Text="Описание"
                        FontSize="13"
                        Foreground="#757575"
                        Margin="0,0,0,4"/>
 
-            <!-- ScrollViewer позволяет прокручивать длинный текст.
-                 VerticalScrollBarVisibility="Auto" — полоса прокрутки
-                 появляется только при необходимости. -->
             <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="100">
                 <TextBlock x:Name="lblDescription"
                            FontSize="13"

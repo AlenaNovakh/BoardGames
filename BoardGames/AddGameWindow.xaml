@@ -23,13 +23,10 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Строка 0: Название -->
         <Label Grid.Row="0" Grid.Column="0" Content="Название:"/>
         <TextBox x:Name="txtName" Grid.Row="0" Grid.Column="1" Margin="3"/>
 
-        <!-- Строка 1: Тип игры -->
         <Label Grid.Row="1" Grid.Column="0" Content="Тип игры:"/>
-        <!-- SelectionChanged — при смене типа показываем/скрываем уникальное поле -->
         <ComboBox x:Name="cmbType"
                   Grid.Row="1" Grid.Column="1"
                   SelectionChanged="cmbType_SelectionChanged">
@@ -38,26 +35,19 @@
             <ComboBoxItem Content="PartyGame"/>
         </ComboBox>
 
-        <!-- Строка 2: Мин. игроков -->
         <Label Grid.Row="2" Grid.Column="0" Content="Мин. игроков:"/>
         <TextBox x:Name="txtMinP" Grid.Row="2" Grid.Column="1" Margin="3" Text="2"/>
 
-        <!-- Строка 3: Макс. игроков -->
         <Label Grid.Row="3" Grid.Column="0" Content="Макс. игроков:"/>
         <TextBox x:Name="txtMaxP" Grid.Row="3" Grid.Column="1" Margin="3" Text="4"/>
 
-        <!-- Строка 4: Возраст -->
         <Label Grid.Row="4" Grid.Column="0" Content="Мин. возраст:"/>
         <TextBox x:Name="txtAge" Grid.Row="4" Grid.Column="1" Margin="3" Text="12"/>
 
-        <!-- Строка 5: Уникальное поле — меняется по типу.
-             Visibility управляется из code-behind. -->
         <Label x:Name="lblExtra" Grid.Row="5" Grid.Column="0" Content="Размер колоды:"/>
-        <!-- Поле для CardGame (размер колоды) -->
         <TextBox x:Name="txtDeckSize"
                  Grid.Row="5" Grid.Column="1"
                  Margin="3" Text="52"/>
-        <!-- Выпадающий список для EuroGame (сложность) -->
         <ComboBox x:Name="cmbComplexity"
                   Grid.Row="5" Grid.Column="1"
                   Visibility="Collapsed">
@@ -65,17 +55,13 @@
             <ComboBoxItem Content="Medium" IsSelected="True"/>
             <ComboBoxItem Content="High"/>
         </ComboBox>
-        <!-- Чекбокс для PartyGame (шумная?) -->
-        <!-- CheckBox — флажок, ключевой элемент WPF UI -->
         <CheckBox x:Name="chkNoisy"
                   Grid.Row="5" Grid.Column="1"
                   Content="Шумная игра"
                   Margin="3,8"
                   Visibility="Collapsed"/>
 
-        <!-- Строка 6: Описание (метка) -->
         <Label Grid.Row="6" Grid.Column="0" Content="Описание:" VerticalAlignment="Top" Margin="0,8,0,0"/>
-        <!-- TextBox многострочный -->
         <TextBox x:Name="txtDesc"
                  Grid.Row="6" Grid.Column="1"
                  Grid.RowSpan="2"
@@ -85,7 +71,6 @@
                  VerticalScrollBarVisibility="Auto"
                  Height="80"/>
 
-        <!-- Строка 8: Кнопки OK / Отмена -->
         <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"

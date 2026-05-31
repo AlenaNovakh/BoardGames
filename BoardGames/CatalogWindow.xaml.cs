@@ -20,15 +20,8 @@ namespace BoardGames.WPF
             LoadTable();
         }
 
-        // Загружаем данные в DataGrid через ItemsSource.
-        // DataGrid отображает коллекцию объектов — каждый объект = одна строка.
-        // Столбцы берут данные через Binding = свойства объекта.
-        // Поэтому нам нужен GameViewModel, у которого есть свойство GameType
-        // (у BoardGame есть метод GetGameType(), но не свойство — привязка к методам не работает).
         private void LoadTable()
         {
-            // Преобразуем BoardGame → GameViewModel для отображения в таблице.
-            // Select — LINQ-проекция: для каждого game создаём новый GameViewModel.
             var viewModels = _catalog.GetAllGames()
                                      .Select(g => new GameViewModel(g))
                                      .ToList();
@@ -41,11 +34,10 @@ namespace BoardGames.WPF
             var addWindow = new AddGameWindow();
             addWindow.Owner = this;
 
-            if (addWindow.ShowDialog() == true) // true = пользователь нажал "Добавить"
+            if (addWindow.ShowDialog() == true)
             {
                 try
                 {
-                    // ПРИВЕДЕНИЕ К ИНТЕРФЕЙСУ #6: GameCatalog → IGameCatalog
                     IGameCatalog gameCatalog = _catalog;
                     gameCatalog.AddGame(addWindow.CreatedGame);
                     _serializer.Save(_catalog.GetAllGames());
@@ -61,7 +53,6 @@ namespace BoardGames.WPF
 
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
-            // SelectedItem в DataGrid возвращает объект строки — у нас это GameViewModel.
             if (dgvGames.SelectedItem is not GameViewModel selectedVm)
             {
                 MessageBox.Show("Выберите игру для удаления.", "Внимание",
@@ -69,7 +60,6 @@ namespace BoardGames.WPF
                 return;
             }
 
-            // Находим реальный BoardGame объект по имени.
             BoardGame gameToRemove = _catalog.GetAllGames()
                                              .FirstOrDefault(g => g.Name == selectedVm.Name);
             if (gameToRemove == null) return;
@@ -84,7 +74,6 @@ namespace BoardGames.WPF
             {
                 try
                 {
-                    // ПРИВЕДЕНИЕ К ИНТЕРФЕЙСУ #7
                     IGameCatalog gameCatalog = _catalog;
                     gameCatalog.RemoveGame(gameToRemove);
                     _serializer.Save(_catalog.GetAllGames());
@@ -99,14 +88,10 @@ namespace BoardGames.WPF
         }
     }
 
-    // ViewModel — промежуточный объект для привязки данных к DataGrid.
-    // Зачем: у BoardGame нет свойства GameType (есть метод GetGameType()),
-    // а WPF Binding работает только со свойствами.
-    // Это также принцип РАЗДЕЛЕНИЯ ОТВЕТСТВЕННОСТИ: модель данных ≠ модель отображения.
     public class GameViewModel
     {
         public string Name { get; } = string.Empty;
-        public string GameType { get; } = string.Empty;  // вызываем GetGameType() один раз
+        public string GameType { get; } = string.Empty;
         public int MinPlayers { get; }
         public int MaxPlayers { get; }
         public int AgeRestriction { get; }
@@ -114,10 +99,8 @@ namespace BoardGames.WPF
 
         public GameViewModel(BoardGame game)
         {
-            // ПРИВЕДЕНИЕ К БАЗОВОМУ ТИПУ (upcast, неявное):
-            // game может быть CardGame/EuroGame/PartyGame, но мы работаем с ним как BoardGame.
             Name = game.Name;
-            GameType = game.GetGameType(); // ПОЛИМОРФИЗМ
+            GameType = game.GetGameType();
             MinPlayers = game.MinPlayers;
             MaxPlayers = game.MaxPlayers;
             AgeRestriction = game.AgeRestriction;
